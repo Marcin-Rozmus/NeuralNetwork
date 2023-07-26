@@ -7,7 +7,7 @@ class NeuralNetwork:
         biases (list): A list of lists containing biases of individual neurons
     """
 
-    class Layer:
+    class __Layer:
         """
         A class used to represent a single layer
 
@@ -16,7 +16,7 @@ class NeuralNetwork:
             biases (list): A list containing biases of individual neurons
         """
 
-        class Neuron:
+        class __Neuron:
             """
             A class used to represent a single neuron
 
@@ -70,7 +70,7 @@ class NeuralNetwork:
 
             self.__neurons = []
             for neuron_weights, neuron_bias in zip(weights, biases):
-                self.__neurons.append(self.Neuron(neuron_weights, neuron_bias))
+                self.__neurons.append(self.__Neuron(neuron_weights, neuron_bias))
 
         def forward(self, inputs: list) -> list:
             """
@@ -101,7 +101,7 @@ class NeuralNetwork:
 
         self.__layers = []
         for layer_neurons_weights, layer_neurons_biases in zip(weights, biases):
-            self.__layers.append(self.Layer(layer_neurons_weights, layer_neurons_biases))
+            self.__layers.append(self.__Layer(layer_neurons_weights, layer_neurons_biases))
 
     def forward(self, inputs: list) -> list:
         """
@@ -114,9 +114,8 @@ class NeuralNetwork:
             list: A batch of layer's outputs
         """
         outputs_list = []
-        for input in inputs:
+        for layer_inputs in inputs:
             output = []
-            layer_inputs = input
             for layer in self.__layers:
                 output = layer.forward(layer_inputs)
                 layer_inputs = output
