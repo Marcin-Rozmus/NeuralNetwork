@@ -7,7 +7,9 @@
     hidden layer 2 - 3 neurons
     output layer - 2 neurons
 """
+import matplotlib.pyplot as plt
 
+import Spiral
 import NeuralNetwork
 
 
@@ -32,17 +34,22 @@ def print_nn_outputs(nn_outputs: list) -> None:
 
 
 def main() -> None:
-    '''
+    """
     Main function. Create neural network and test it.
-    '''
-    # batch of inputs
-    nn_inputs = [[1, 2, 3],
-                 [2, 3, 4],
-                 [-1, -1, -1.3],
-                 [-2.9, -3.2, -4]]
 
-    # hidden layer 1 weights - 3 neurons, 4 inputs
-    h_layer1_weights = [[1.0, 0.5, -0.2, 0.1], [1.3, 0.8, 0.5, 1], [1.0, 1.0, 1.0, 1.0]]
+    """
+
+    # generate training data
+    X, y = Spiral.generate_data(samples=500, classes=2)
+    plt.scatter(X[:, 0], X[:, 1], c=y, cmap='Paired')
+    plt.title('Training data')
+    plt.show()
+
+    # batch of inputs
+    nn_inputs = zip(X[:, 0], X[:, 1])
+
+    # hidden layer 1 weights - 3 neurons, 2 inputs
+    h_layer1_weights = [[1.0, 0.5], [1.3, 0.8], [1.0, 1.0]]
     # hidden layer 2 weights - 3 neurons, 3 inputs
     h_layer2_weights = [[3.0, 1.2, 1.3], [-0.1, -0.2, -0.3], [1.0, 1.0, 1.0]]
     # output layer weights - 2 neurons, 3 inputs
