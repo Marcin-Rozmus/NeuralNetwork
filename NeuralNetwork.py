@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class NeuralNetwork:
     """
     A class used to represent a single neural network
@@ -22,22 +25,21 @@ class NeuralNetwork:
 
             Attributes:
                 weights (list): (class attribute) A list containing weights of neuron
-                biases (float): (class attribute) Neuron's bias
+                bias (float): (class attribute) Neuron's bias
             """
 
             __slots__ = ['weights', 'bias']
 
-            def __init__(self, weights: list, bias: float) -> None:
+            def __init__(self, no_inputs: int) -> None:
                 """
                 Creates a single neuron
 
                 Args:
-                    weights (list): A list containing weights of neuron
-                    biases (float): Neuron's bias
+                    no_inputs (int) - number of neuron's inputs
                 """
 
-                self.weights = weights
-                self.bias = bias
+                self.weights = 1 * np.random.randn(no_inputs)
+                self.bias = 0.0
 
             def forward(self, inputs: list) -> float:
                 """
@@ -59,18 +61,18 @@ class NeuralNetwork:
 
         __slots__ = ['__neurons']
 
-        def __init__(self, weights: list, biases: list) -> None:
+        def __init__(self, no_inputs: int, no_neurons: int) -> None:
             """
             Creates a layer of neurons
 
             Args:
-                weights (list): A list of lists containing weights of individual neurons
-                biases (list): A list containing biases of individual neurons
+                no_inputs (list): A list of numbers of neurons inputs
+                no_neurons (list): A list of numbers of neurons in layer
             """
 
             self.__neurons = []
-            for neuron_weights, neuron_bias in zip(weights, biases):
-                self.__neurons.append(self.__Neuron(neuron_weights, neuron_bias))
+            for neuron in range(no_neurons):
+                self.__neurons.append(self.__Neuron(no_inputs))
 
         def forward(self, inputs: list) -> list:
             """
@@ -90,18 +92,18 @@ class NeuralNetwork:
 
     __slots__ = ['__layers']
 
-    def __init__(self, weights: list, biases: list) -> None:
+    def __init__(self, layer_no_inputs: list, layer_no_neurons: list) -> None:
         """
         Creates neural network's layers
 
         Args:
-            weights (list): A list of lists containing weights of individual neurons
-            biases (list): A list containing biases of individual neurons
+            no_inputs (list): A list containing numbers of neuron's inputs
+            no_neurons (list): A list containing numbers of layer's neurons
         """
 
         self.__layers = []
-        for layer_neurons_weights, layer_neurons_biases in zip(weights, biases):
-            self.__layers.append(self.__Layer(layer_neurons_weights, layer_neurons_biases))
+        for no_inputs, no_neurons in zip(layer_no_inputs, layer_no_neurons):
+            self.__layers.append(self.__Layer(no_inputs, no_neurons))
 
     def forward(self, inputs: list) -> list:
         """
