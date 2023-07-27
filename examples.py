@@ -51,18 +51,22 @@ def main() -> None:
     # hidden layer 1 - 3 neurons, 2 inputs
     h_layer1_no_inputs = 2
     h_layer1_no_neurons = 3
+    h_layer1_act_func = 'relu'
     # hidden layer 2 - 3 neurons, 3 inputs
     h_layer2_no_inputs = 3
     h_layer2_no_neurons = 3
+    h_layer2_act_func = 'relu'
     # output layer - 2 neurons, 3 inputs
     o_layer_no_inputs = 3
     o_layer_no_neurons = 2
+    o_layer_act_func = 'relu'
 
     nn_no_inputs = [h_layer1_no_inputs, h_layer2_no_inputs, o_layer_no_inputs]
     nn_no_neurons = [h_layer1_no_neurons, h_layer2_no_neurons, o_layer_no_neurons]
+    nn_activation_functions = [h_layer1_act_func, h_layer2_act_func, o_layer_act_func]
 
     # neural network creation
-    nn = NeuralNetwork.NeuralNetwork(nn_no_inputs, nn_no_neurons)
+    nn = NeuralNetwork.NeuralNetwork(nn_no_inputs, nn_no_neurons, nn_activation_functions)
     # compute neural network output
     nn_outputs = nn.forward(nn_inputs)
 
