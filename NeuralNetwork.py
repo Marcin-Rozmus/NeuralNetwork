@@ -36,7 +36,7 @@ class NeuralNetwork:
                 __slots__ = ['func_type']
 
                 def __init__(self, func_type: str = "step") -> None:
-                    available_activation_function_types = ['step', 'linear', 'relu']
+                    available_activation_function_types = ['step', 'linear', 'relu', 'sigmoid']
                     if func_type.lower() in available_activation_function_types:
                         self.func_type = func_type.lower()
                     else:
@@ -63,11 +63,17 @@ class NeuralNetwork:
                     elif self.func_type == 'linear':
                         neuron_output = neuron_value
                     elif self.func_type == 'relu':
-                        if neuron_value <= 0.0:
-                            neuron_output = 0
-                        else:
+                        if neuron_value > 0.0:
                             neuron_output = neuron_value
-
+                        else:
+                            neuron_output = 0.0
+                    elif self.func_type == 'leaky_relu':
+                        if neuron_value >= 0.0:
+                            neuron_output = neuron_value
+                        else:
+                            neuron_output = 0.01*neuron_value
+                    elif self.func_type == 'sigmoid':
+                        neuron_output = 1/(1 + np.exp(-neuron_value))
                     return neuron_output
 
             __slots__ = ['weights', 'bias', '__activation_function']
