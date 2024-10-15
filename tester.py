@@ -4,20 +4,21 @@
 """
 
 import Neuron
+import Layer
 
 
 def main():
     """
-        Main function. Create neural network and test it.
+    Main function. Create neural network and test it.
 
     """
 
-    inputs = [1.0, 2.0, 3.0]
+    inputs = [1.0, 2.0, 3.0, -1.0]
 
-    neuron = Neuron.Neuron(3)
+    layer = Layer.Layer(no_inputs=4, no_neurons=3)
 
-    print(neuron.forward(inputs))
+    print(layer.forward(inputs))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -7,19 +7,28 @@ class Neuron:
 
     Args:
         no_inputs (int): A number of neurons inputs. This argument determine number of weights.
-        
+
     """
-    
-    __slots__ = [
-        '__weights',
-        '__bias'
-    ]
 
-    def __init__(self, no_inputs: int):
-        self.__weights = np.random.randn(no_inputs)
-        self.__bias = 0.0
+    __slots__ = ["__weights", "__bias"]
 
-    def forward(self, inputs: list):
+    def __init__(self, no_inputs: int, weights=(), bias=0.0):
+        if len(weights) == no_inputs:
+            self.__weights = list(weights)
+        else:
+            self.__weights = np.random.randn(no_inputs)
+        self.__bias = bias
+
+    def forward(self, inputs: list) -> float:
+        """
+        Computes a neuron's output
+
+        Args:
+            inputs (list): A list of neuron's inputs
+
+        Returns:
+            float: Calculated neuron's output
+        """
         output = 0
         for i in range(len(inputs)):
             output += self.__weights[i] * inputs[i]
