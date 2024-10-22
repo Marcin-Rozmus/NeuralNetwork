@@ -29,9 +29,6 @@ class Neuron:
         Returns:
             float: Calculated neuron's output
         """
-        output = 0
-        for i in range(len(inputs)):
-            output += self.__weights[i] * inputs[i]
-        output += self.__bias
+        output = np.dot(self.__weights, inputs) + self.__bias
 
         return output
