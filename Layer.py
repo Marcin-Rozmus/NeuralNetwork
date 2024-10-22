@@ -1,3 +1,5 @@
+import numpy as np
+
 import Neuron
 
 
@@ -42,8 +44,20 @@ class Layer:
         Returns:
             list: A batch of layer's outputs
         """
+        inputs = np.array(inputs)
         output = []
-        for neuron in self.__neurons:
-            output.append(neuron.forward(inputs))
+
+        if len(inputs.shape) == 1:
+            for neuron in self.__neurons:
+                output.append(neuron.forward(inputs))
+
+        elif len(inputs.shape) == 2:
+            for inputs_sample in inputs:
+                output_sample = []
+                for neuron in self.__neurons:
+                    output_sample.append(neuron.forward(inputs_sample))
+                output.append(output_sample)
+        else:
+            ...
 
         return output

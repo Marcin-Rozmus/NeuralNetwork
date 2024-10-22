@@ -3,8 +3,12 @@
 
 """
 
+import numpy as np
+import matplotlib.pyplot as plt
+
 import Neuron
 import Layer
+import Spiral
 
 
 def main():
@@ -12,12 +16,17 @@ def main():
     Main function. Create neural network and test it.
 
     """
+    inputs = [1.0, 2.0]
+    X, y = Spiral.generate_data(samples=100, classes=3)
 
-    inputs = [1.0, 2.0, 3.0, -1.0]
+    plt.scatter(X[:, 0], X[:, 1], c=y, cmap="brg")
+    # plt.show()
 
-    layer = Layer.Layer(no_inputs=4, no_neurons=3)
+    layer = Layer.Layer(no_inputs=2, no_neurons=3)
+    ys_pred = layer.forward(X[:5])
 
-    print(layer.forward(inputs))
+    for y_pred in ys_pred:
+        print(y_pred)
 
 
 if __name__ == "__main__":
